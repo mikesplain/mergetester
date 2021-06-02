@@ -24,6 +24,6 @@ jobs:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
 
     - uses: alexwilson/enable-github-automerge-action@main
-      if: github.event.label.name == 'automerge'
+      if: contains(github.event.pull_request.labels.*.name, 'automerge')
       with:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
