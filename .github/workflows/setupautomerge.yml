@@ -1,39 +1,21 @@
-name: Enable automerge on dependabot PRs
-
+name: Auto-Merge
 on:
-  # See note below about using pull_request_target
   pull_request_target:
+    types: [labeled]
 
 jobs:
-  automerge:
-    name: Enable automerge on dependabot PRs
+  enable-auto-merge:
     runs-on: ubuntu-latest
+
+    # Specifically check that dependabot (or another trusted party) created this pull-request, and that it has been labelled correctly.
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && contains(github.event.pull_request.labels.*.name, 'dependencies')
     steps:
-      - name: Enable automerge on dependabot PRs
-        uses: daneden/enable-automerge-action@v1
-        with:
-          # A personal access token that you have generated and saved in the
-          # repo or org’s encrypted secrets
-          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-          # The name of the PR author to enable automerge for
-          # Defaults to dependabot[bot]
-          allowed-author: "dependabot[bot]"
-
-          # Allowed values: MERGE | SQUASH | REBASE
-          # Defaults to MERGE
-          merge-method: MERGE
-      - name: Enable automerge on dependabot PRs
-        uses: daneden/enable-automerge-action@v1
-        with:
-          # A personal access token that you have generated and saved in the
-          # repo or org’s encrypted secrets
-          github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-
-          # The name of the PR author to enable automerge for
-          # Defaults to dependabot[bot]
-          allowed-author: "mikesplain"
-
-          # Allowed values: MERGE | SQUASH | REBASE
-          # Defaults to MERGE
-          merge-method: MERGE
+    - uses: alexwilson/enable-github-automerge-action@main
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
+    # Specifically check that dependabot (or another trusted party) created this pull-request, and that it has been labelled correctly.
+    if: github.event.pull_request.user.login == 'mikesplain')
+    steps:
+    - uses: alexwilson/enable-github-automerge-action@main
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
