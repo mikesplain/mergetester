@@ -22,3 +22,8 @@ jobs:
       if: github.actor == 'mikesplain'
       with:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+    - uses: hmarr/auto-approve-action@v2
+      if: github.event.label.name == 'automerge'
+      with:
+        github-token: "${{ secrets.GITHUB_TOKEN }}"
