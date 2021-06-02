@@ -4,7 +4,7 @@ on:
     types: [labeled]
 
 jobs:
-  enable-auto-merge:
+  enable-auto-merge-dependabot:
     runs-on: ubuntu-latest
 
     # Specifically check that dependabot (or another trusted party) created this pull-request, and that it has been labelled correctly.
@@ -13,7 +13,8 @@ jobs:
     - uses: alexwilson/enable-github-automerge-action@main
       with:
         github-token: "${{ secrets.GITHUB_TOKEN }}"
-    # Specifically check that dependabot (or another trusted party) created this pull-request, and that it has been labelled correctly.
+  enable-auto-merge-mikesplain:
+    runs-on: ubuntu-latest
     if: github.event.pull_request.user.login == 'mikesplain')
     steps:
     - uses: alexwilson/enable-github-automerge-action@main
